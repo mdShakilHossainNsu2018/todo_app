@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1 class="display-1">This is a todo app</h1>
+
+ <ol class="list-group">
+     {% for todo_item in todoitem_list %}
+         <li class="list-group-item">{{ todo_item.content }}
+         <form action="{% url 'todo:deleteTodo' todo_item.id %}" method="post"
+         style="display: inline"
+         >
+    {% csrf_token %}
+    <input type="submit" value="X" class="btn btn-danger">
+</form>
+         </li>
+
+     {% endfor %}
+ </ol>
+<form action="{% url 'todo:addTodo' %}" method="post">
+    {% csrf_token %}
+    <label>Your name: </label>
+    <input type="text" name="content" >
+    <input type="submit" value="add" class="btn btn-outline-primary">
+    <button type="button" class="btn btn-outline-primary">Primary</button>
+</form>
+</body>
+</html>
