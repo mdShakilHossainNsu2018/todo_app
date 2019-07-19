@@ -8,6 +8,13 @@ from django.views.generic import TemplateView
 
 class IndexView(generic.ListView):
     model = TodoItem
+
+    # def get_context_data(self,**kwargs):
+    #     context = super(IndexView, self).get_context_data(**kwargs)
+    #     item = TodoItem.objects.all().count()
+    #     context['num'] = range(1, item)
+    #     print(context['num'])
+    #     return context
     template_name = 'todo/index.html'
 
 

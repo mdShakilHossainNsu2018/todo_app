@@ -13,27 +13,49 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 class="display-1">This is a todo app</h1>
+<div class="container">
+    <h1 class="display-1">Todo App</h1>
+{% if  todoitem_list %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
 
- <ol class="list-group">
-     {% for todo_item in todoitem_list %}
-         <li class="list-group-item">{{ todo_item.content }}
-         <form action="{% url 'todo:deleteTodo' todo_item.id %}" method="post"
+      <th scope="col">Task</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+      <tbody>
+      {% for todo_item in todoitem_list %}
+
+    <tr>
+
+
+
+      <td>{{ todo_item.content }}</td>
+      <td>{{ todo_item.created_at }}</td>
+      <td><form action="{% url 'todo:deleteTodo' todo_item.id %}" method="post"
          style="display: inline"
          >
     {% csrf_token %}
-    <input type="submit" value="X" class="btn btn-danger">
-</form>
-         </li>
+    <input  type="submit" value="Delete" class="btn btn-danger">
+</form></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endif %}
 
-     {% endfor %}
- </ol>
+
 <form action="{% url 'todo:addTodo' %}" method="post">
     {% csrf_token %}
-    <label>Your name: </label>
+    <label>Your Todo: </label>
     <input type="text" name="content" >
-    <input type="submit" value="add" class="btn btn-outline-primary">
-    <button type="button" class="btn btn-outline-primary">Primary</button>
+    <input type="submit" value="add" class="btn btn-primary">
 </form>
+</div>
+
 </body>
 </html>
